@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>金民华 · 音乐制作人 · Hidy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap');
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg:#f5f0e8; --surface:#ede7da; --surface2:#e4ddd0;
+      --border:rgba(80,55,30,0.12); --border-strong:rgba(80,55,30,0.22);
+      --text:#2a1f0e; --text-sec:#6b5740; --text-muted:#a08060;
+      --accent:#7c5c38; --accent-dim:rgba(124,92,56,0.1); --accent-border:rgba(124,92,56,0.25);
+      --green:#4a7c59; --green-dim:rgba(74,124,89,0.1); --green-border:rgba(74,124,89,0.25);
+      --blue:#3c5a8c; --blue-dim:rgba(60,90,140,0.1); --blue-border:rgba(60,90,140,0.25);
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif; background:var(--bg); color:var(--text); font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased; }
+    nav { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; background:rgba(245,240,232,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:'Lora',serif; font-size:18px; font-weight:500; color:var(--text); text-decoration:none; }
+    .nav-links { display:flex; gap:2rem; align-items:center; }
+    .nav-links a { font-size:13px; color:var(--text-sec); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-lang { font-size:12px; padding:4px 12px; border-radius:99px; border:1px solid var(--border-strong); color:var(--text-sec); text-decoration:none; }
+    .nav-lang:hover { color:var(--text); border-color:var(--accent); }
+    .hero { position:relative; min-height:94vh; display:flex; align-items:flex-end; overflow:hidden; }
+    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 25%; filter:brightness(0.52) sepia(0.25); }
+    .hero-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(25,14,4,0.92) 0%, rgba(25,14,4,0.15) 55%, transparent 100%); }
+    .hero-content { position:relative; z-index:2; max-width:720px; margin:0 auto; padding:4rem 2rem 5rem; width:100%; }
+    .hero-tag { display:inline-block; font-size:11px; letter-spacing:0.1em; color:#d4b896; border:1px solid rgba(212,184,150,0.35); border-radius:99px; padding:5px 16px; margin-bottom:1.5rem; }
+    .hero h1 { font-family:'Lora',serif; font-size:clamp(40px,7vw,66px); font-weight:500; line-height:1.1; color:#f5ede0; margin-bottom:0.5rem; }
+    .hero-sub { font-size:17px; color:#c4a882; letter-spacing:0.04em; margin-bottom:1.25rem; }
+    .hero-desc { font-size:15px; color:rgba(212,184,150,0.8); line-height:1.8; max-width:440px; margin-bottom:2.5rem; }
+    .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-primary { padding:11px 24px; border-radius:8px; font-size:14px; font-weight:500; background:#c4915a; color:#fff; border:none; cursor:pointer; text-decoration:none; transition:background 0.2s; }
+    .btn-primary:hover { background:#b07a45; }
+    .btn-ghost { padding:11px 24px; border-radius:8px; font-size:14px; background:transparent; color:#f0e0cc; border:1px solid rgba(212,184,150,0.4); text-decoration:none; transition:border-color 0.2s; }
+    .btn-ghost:hover { border-color:rgba(212,184,150,0.7); }
+    hr { border:none; border-top:1px solid var(--border); }
+    section { max-width:720px; margin:0 auto; padding:3.5rem 2rem; }
+    .sec-label { font-size:11px; letter-spacing:0.12em; color:var(--text-muted); margin-bottom:1.5rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border); }
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; }
+    .skill-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.1rem 1.25rem; }
+    .skill-card:hover { border-color:var(--border-strong); }
+    .skill-icon { font-size:22px; margin-bottom:10px; }
+    .skill-title { font-size:14px; font-weight:500; margin-bottom:4px; }
+    .skill-desc { font-size:12px; color:var(--text-sec); line-height:1.6; }
+    .genre-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:1.25rem; }
+    .chip { padding:5px 14px; border-radius:99px; font-size:12px; background:var(--surface2); border:1px solid var(--border-strong); color:var(--text-sec); }
+    .chip.accent { background:var(--accent-dim); border-color:var(--accent-border); color:var(--accent); }
+    .exp-list { display:flex; flex-direction:column; gap:12px; }
+    .exp-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; }
+    .exp-header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:5px; flex-wrap:wrap; }
+    .exp-title { font-size:14px; font-weight:500; }
+    .exp-date { font-size:12px; color:var(--text-muted); white-space:nowrap; }
+    .exp-org { font-size:12px; color:var(--text-sec); margin-bottom:8px; }
+    .exp-bullets { list-style:none; display:flex; flex-direction:column; gap:5px; }
+    .exp-bullets li { font-size:12px; color:var(--text-sec); line-height:1.65; padding-left:14px; position:relative; }
+    .exp-bullets li::before { content:'—'; position:absolute; left:0; color:var(--text-muted); }
+    .edu-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; display:flex; gap:1rem; align-items:flex-start; margin-bottom:10px; }
+    .edu-card:last-child { margin-bottom:0; }
+    .edu-icon { width:44px; height:44px; border-radius:10px; background:var(--accent-dim); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+    .edu-school { font-size:15px; font-weight:500; margin-bottom:3px; }
+    .edu-degree { font-size:12px; color:var(--text-sec); margin-bottom:3px; }
+    .edu-location { font-size:11px; color:var(--text-muted); }
+    .awards-list { display:flex; flex-direction:column; gap:8px; }
+    .award-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:0.9rem 1.1rem; display:flex; gap:10px; align-items:flex-start; }
+    .award-year { font-size:11px; font-weight:500; color:var(--accent); background:var(--accent-dim); border:1px solid var(--accent-border); border-radius:99px; padding:2px 9px; white-space:nowrap; flex-shrink:0; margin-top:2px; }
+    .award-text { font-size:13px; color:var(--text-sec); line-height:1.55; }
+    .award-text strong { color:var(--text); font-weight:500; }
+    .works { display:flex; flex-direction:column; gap:16px; }
+    .work-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .work-card:hover { border-color:var(--border-strong); }
+    .work-card.featured { border-color:var(--accent-border); }
+    .strain-cover { position:relative; width:100%; }
+    .strain-cover img { width:100%; height:260px; object-fit:cover; object-position:center 30%; display:block; }
+    .strain-cover::after { content:''; position:absolute; bottom:0; left:0; right:0; height:60%; background:linear-gradient(to top, var(--surface) 0%, transparent 100%); }
+    .work-header { padding:1.1rem 1.25rem 0.75rem; }
+    .work-title-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+    .work-title { font-size:16px; font-weight:500; }
+    .badge { font-size:11px; padding:3px 10px; border-radius:99px; }
+    .badge-brown { background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent-border); }
+    .badge-blue { background:var(--blue-dim); color:var(--blue); border:1px solid var(--blue-border); }
+    .badge-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green-border); }
+    .roles { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+    .role { font-size:11px; padding:3px 10px; border-radius:99px; background:var(--surface2); border:1px solid var(--border-strong); color:var(--text-sec); }
+    .role.hl { background:var(--accent-dim); color:var(--accent); border-color:var(--accent-border); }
+    .stats { display:flex; gap:14px; margin-bottom:10px; flex-wrap:wrap; }
+    .stat { font-size:12px; color:var(--text-muted); }
+    .work-desc { font-size:13px; color:var(--text-sec); line-height:1.65; margin-bottom:10px; }
+    .tracklist { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:10px 12px; margin-bottom:10px; }
+    .tl-label { font-size:10px; color:var(--text-muted); letter-spacing:0.08em; margin-bottom:8px; }
+    .tracks { display:flex; flex-wrap:wrap; gap:5px; }
+    .track { font-size:11px; padding:3px 9px; border-radius:99px; background:var(--surface); border:1px solid var(--border); color:var(--text-sec); }
+    .track.sp { background:var(--accent-dim); color:var(--accent); border-color:var(--accent-border); }
+    .legend { display:flex; gap:12px; margin-top:8px; }
+    .leg { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--text-muted); }
+    .dot { width:7px; height:7px; border-radius:50%; }
+    .genre-tag { font-size:11px; color:var(--text-muted); letter-spacing:0.04em; }
+    .netease-btn { display:inline-flex; align-items:center; gap:6px; margin:0 1.25rem 1.25rem; padding:7px 16px; border-radius:8px; font-size:12px; background:rgba(204,32,32,0.08); color:#cc2020; border:1px solid rgba(204,32,32,0.2); text-decoration:none; }
+    .netease-btn:hover { background:rgba(204,32,32,0.14); }
+    .contact-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:2rem 1.5rem; }
+    .contact-desc { font-size:14px; color:var(--text-sec); line-height:1.7; text-align:center; margin-bottom:1.75rem; }
+    .contact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:1.5rem; }
+    .contact-item { display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); text-decoration:none; transition:border-color 0.2s; }
+    .contact-item:hover { border-color:var(--border-strong); }
+    .c-icon { width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; background:var(--accent-dim); }
+    .c-label { font-size:10px; color:var(--text-muted); letter-spacing:0.04em; margin-bottom:2px; }
+    .c-value { font-size:12px; color:var(--text); font-weight:500; }
+    .qr-wrap { display:flex; align-items:center; gap:1.5rem; padding:1rem 1.25rem; background:var(--surface2); border-radius:10px; border:1px solid var(--border); }
+    .qr-wrap img { width:90px; height:90px; border-radius:8px; flex-shrink:0; }
+    .qr-text { font-size:13px; color:var(--text-sec); line-height:1.7; }
+    .qr-text strong { color:var(--text); font-size:14px; display:block; margin-bottom:4px; }
+    footer { text-align:center; padding:2rem; font-size:12px; color:var(--text-muted); border-top:1px solid var(--border); }
+    @media (max-width:600px) { nav { padding:0.9rem 1.25rem; } .nav-links { gap:1.25rem; } section { padding:2.5rem 1.25rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Hidy</a>
+  <div class="nav-links">
+    <a href="#skills">技能</a>
+    <a href="#experience">经历</a>
+    <a href="#works">作品</a>
+    <a href="#contact">联系</a>
+    <a href="cn-resume.html" target="_blank">简历</a>
+    <a class="nav-lang" href="index.html">EN</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <img class="hero-img" src="hero.jpg" alt="金民华现场演出"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tag">音乐制作人 · A&R · 录音与混音</span>
+    <h1>金民华</h1>
+    <p class="hero-sub">录音 · 混音 · 音乐制作</p>
+    <p class="hero-desc">伦敦音乐学院在读，主攻录音、混音与制作。擅长 R&B 与摇滚风格，具备独立发行与厂牌运营实战经验。</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#works">听我的作品</a>
+      <a class="btn-ghost" href="#contact">联系我</a>
+      <a class="btn-ghost" href="cn-resume.html" target="_blank">查看简历</a>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
+<section id="skills">
+  <p class="sec-label">核心技能</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🎙</div>
+      <div class="skill-title">录音</div>
+      <div class="skill-desc">Audient ASP 8024 调音台 · 动圈/电容麦克风 · 外置效果器（Warm Audio、TF Pro P38、LA-2A）</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎚</div>
+      <div class="skill-title">混音</div>
+      <div class="skill-desc">Cubase 12 Pro（主力）· Pro Tools · Logic Pro · 主流数字音频插件</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎵</div>
+      <div class="skill-title">制作与编曲</div>
+      <div class="skill-desc">流行 · R&B · 摇滚 · Emo 等多风格编曲，具备从词曲到成品的全流程制作能力</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🏷</div>
+      <div class="skill-title">A&R / 厂牌</div>
+      <div class="skill-desc">新音乐评估 · 艺人开发 · 独立发行策略 · 受众分析 · 独立乐队文化</div>
+    </div>
+  </div>
+  <div class="genre-chips">
+    <span class="chip accent">R&B</span>
+    <span class="chip accent">摇滚</span>
+    <span class="chip accent">Emo</span>
+    <span class="chip">另类</span>
+    <span class="chip">独立</span>
+    <span class="chip">中文（母语）</span>
+    <span class="chip">英文（流利）</span>
+  </div>
+</section>
+
+<hr/>
+
+<section id="experience">
+  <p class="sec-label">项目经历</p>
+  <div class="exp-list">
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-title">独立音乐项目（乐队词曲 · 编曲 · 录混音 · 吉他）</span>
+        <span class="exp-date">2024.08 – 至今</span>
+      </div>
+      <div class="exp-org">个人乐队项目 — 伦敦 / 广州</div>
+      <ul class="exp-bullets">
+        <li>主创单曲《Home Is Nowhere》（网易云"孤獨沒有週期"）：负责全部编曲、录音及混音，无付费推广，播放量突破25万，获1万+收藏点赞。</li>
+        <li>全平台粉丝数达8,000+，通过持续发行与直接互动积累真实受众。</li>
+        <li>2026年独立完成乐队新专辑《Strain!!》全部9首曲目的混音工作，并主导其中两首曲目的编曲制作，获国内行业专业人士认可。</li>
+        <li>担任单曲《Life Is Right After》（网易云"Waterpipe"）制作人：负责编曲、吉他录制及录音棚全程统筹。</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-title">演出策划 — "人间乐园"系列主题演出</span>
+        <span class="exp-date">2024.08 – 2025.07</span>
+      </div>
+      <div class="exp-org">独立策划 · 广州 MAO Livehouse（永庆坊店）</div>
+      <ul class="exp-bullets">
+        <li>独立策划并举办两场独立乐队主题演出，每场观众规模100+人。</li>
+        <li>负责乐队阵容筛选（3-4支本地乐队/场），统筹场地谈判、艺人联络与排期安排。</li>
+        <li>参与设计乐队系列周边产品。</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-title">A&R 及厂牌项目 — LCM 唱片厂牌</span>
+        <span class="exp-date">2024.09 – 至今</span>
+      </div>
+      <div class="exp-org">西伦敦大学（学位课程模块）</div>
+      <ul class="exp-bullets">
+        <li>在模拟唱片公司环境中负责新音乐评估、发行策略制定，并跨制作、营销与管理团队协同推进项目。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr/>
+
+<section id="education">
+  <p class="sec-label">教育背景</p>
+  <div class="edu-card">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-school">西伦敦大学 伦敦音乐学院</div>
+      <div class="edu-degree">录音、混音与制作 | 荣誉文学学士</div>
+      <div class="edu-location">2024.09 – 2026.07（预计）· 英国伦敦</div>
+    </div>
+  </div>
+  <div class="edu-card">
+    <div class="edu-icon">🎼</div>
+    <div>
+      <div class="edu-school">星海音乐学院</div>
+      <div class="edu-degree">音乐制作专业 | 结业</div>
+      <div class="edu-location">2022.09 – 2024.07 · 广州</div>
+    </div>
+  </div>
+</section>
+
+<hr/>
+
+<section id="awards">
+  <p class="sec-label">所获荣誉</p>
+  <div class="awards-list">
+    <div class="award-item">
+      <span class="award-year">2023</span>
+      <div class="award-text"><strong>粤港澳音乐科技设计大赛 优秀奖</strong> — 影视配乐组，担任主创编曲及音频设计。</div>
+    </div>
+    <div class="award-item">
+      <span class="award-year">2024</span>
+      <div class="award-text"><strong>星海音乐学院"奉献奖"</strong> — 毕业典礼颁发。</div>
+    </div>
+    <div class="award-item">
+      <span class="award-year">2026</span>
+      <div class="award-text"><strong>行业认可</strong> — 《Strain!!》专辑混音获国内音乐行业专业人士正面评价。</div>
+    </div>
+  </div>
+</section>
+
+<hr/><section id="works">
+  <p class="sec-label">代表作品</p>
+  <div class="works">
+
+    <div class="work-card featured">
+      <div class="strain-cover">
+        <img src="strain.jpg" alt="Strain!!演出现场"/>
+      </div>
+      <div class="work-header">
+        <div class="work-title-row">
+          <span class="work-title">Strain!!</span>
+          <span class="badge badge-brown">毕业作品</span>
+        </div>
+        <div class="roles">
+          <span class="role hl">混音 — 全专辑</span>
+          <span class="role hl">编曲 — 地狱火俱乐部</span>
+          <span class="role hl">编曲 — 庙</span>
+        </div>
+        <p class="work-desc">伦敦音乐学院毕业作品，独立完成全部9首曲目的混音工程，并主导其中两首的编曲制作，获国内行业专业人士认可。</p>
+        <div class="tracklist">
+          <div class="tl-label">曲目列表</div>
+          <div class="tracks">
+            <span class="track">1. Strain Theory</span>
+            <span class="track">2. Blind</span>
+            <span class="track sp">3. 地狱火俱乐部 ✦</span>
+            <span class="track">4. Pressure</span>
+            <span class="track">5. Puppet</span>
+            <span class="track">6. Interlude</span>
+            <span class="track">7. Beneath The Sun</span>
+            <span class="track sp">8. 庙 ✦</span>
+            <span class="track">9. Well-Being</span>
+          </div>
+          <div class="legend">
+            <div class="leg"><div class="dot" style="background:#7c5c38"></div> 混音 + 编曲</div>
+            <div class="leg"><div class="dot" style="background:#c0ad96"></div> 仅混音</div>
+          </div>
+        </div>
+        <span class="genre-tag">摇滚 · 另类</span>
+      </div>
+      <a class="netease-btn" href="https://163cn.tv/9SKkNLO" target="_blank" rel="noopener">🎵 在网易云音乐收听</a>
+    </div>
+
+    <div class="work-card">
+      <div class="work-header">
+        <div class="work-title-row">
+          <span class="work-title">Home Is Nowhere</span>
+          <span class="badge badge-blue">代表单曲</span>
+        </div>
+        <div class="roles">
+          <span class="role">录音</span>
+          <span class="role">混音</span>
+          <span class="role">编曲</span>
+          <span class="role">制作</span>
+        </div>
+        <div class="stats">
+          <span class="stat">▶ 25万+ 播放</span>
+          <span class="stat">♥ 1万+ 收藏</span>
+          <span class="stat">💬 800+ 评论</span>
+        </div>
+        <p class="work-desc">Emo Rock 风格代表作，发布于网易云"孤獨沒有週期"，无付费推广实现25万+播放，在国内独立摇滚圈积累了真实且活跃的听众群体。</p>
+        <span class="genre-tag">Emo Rock</span>
+      </div>
+      <a class="netease-btn" href="https://163cn.tv/9SKbW1t" target="_blank" rel="noopener">🎵 在网易云音乐收听</a>
+    </div>
+
+    <div class="work-card">
+      <div class="work-header">
+        <div class="work-title-row">
+          <span class="work-title">Life Is Right After</span>
+          <span class="badge badge-green">接单作品</span>
+        </div>
+        <div class="roles">
+          <span class="role">编曲</span>
+          <span class="role">吉他录音</span>
+          <span class="role">录音棚统筹</span>
+        </div>
+        <p class="work-desc">为艺人 Waterpipe 制作的商业单曲，负责完整编曲、吉他录制及录音棚全程统筹协调。</p>
+        <span class="genre-tag">摇滚</span>
+      </div>
+      <a class="netease-btn" href="https://163cn.tv/9SKN2du" target="_blank" rel="noopener">🎵 在网易云音乐收听</a>
+    </div>
+
+  </div>
+</section>
+
+<hr/>
+
+<section id="contact">
+  <p class="sec-label">联系方式</p>
+  <div class="contact-card">
+    <p class="contact-desc">欢迎洽谈混音合作、音乐制作及 A&R 相关机会。</p>
+    <div class="contact-grid">
+      <a class="contact-item" href="mailto:jinminhua228@gmail.com">
+        <div class="c-icon">✉️</div>
+        <div><div class="c-label">邮箱</div><div class="c-value">jinminhua228@gmail.com</div></div>
+      </a>
+      <a class="contact-item" href="tel:+447927709302">
+        <div class="c-icon">📞</div>
+        <div><div class="c-label">电话</div><div class="c-value">+44 7927 709302</div></div>
+      </a>
+      <div class="contact-item">
+        <div class="c-icon">💬</div>
+        <div><div class="c-label">微信</div><div class="c-value">HIDE0004</div></div>
+      </div>
+      <a class="contact-item" href="https://163cn.tv/9SKeuTz" target="_blank" rel="noopener">
+        <div class="c-icon">🎵</div>
+        <div><div class="c-label">网易云音乐</div><div class="c-value">Hidy</div></div>
+      </a>
+    </div>
+    <div class="qr-wrap">
+      <img src="qr.jpg" alt="网易云音乐二维码"/>
+      <div class="qr-text">
+        <strong>扫码关注网易云音乐</strong>
+        搜索 Hidy / 孤獨沒有週期 / Strain!! 均可找到我的作品。
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 金民华 · Hidy · 伦敦</footer>
+</body>
+</html>
